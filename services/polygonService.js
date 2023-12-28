@@ -1,7 +1,8 @@
 import { restClient } from '@polygon.io/client-js';
-const rest = restClient(process.env.POLY_API_KEY);
+const rest = restClient("PSmchHlorSsseDV5nQtJldI8YvfcCVps");
 
-function getTickers(){
+
+export function getTickers(){
     rest.stocks.snapshotAllTickers()
     .then((data) => {
         console.log(data)
@@ -12,6 +13,26 @@ function getTickers(){
     });
 }
 
-module.exports = {
-    getTickers: getTickers
-};
+export function getTickersInfo(tickerName){
+    rest.stocks.snapshotTicker(tickerName)
+    .then((data)=>{
+        console.log(data)
+        return data
+    })
+    .catch(e=>{
+        console.log("this is an error ")
+    })
+    
+
+}
+
+export function getLastTrade(tickerName){
+    rest.stocks.lastTrade(tickerName).then((data) => {
+        return data
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+
